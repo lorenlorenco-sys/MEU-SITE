@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preview — GPS Psíquico Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        hsl(40 20% 97%);
+      --bg-muted:  hsl(40 20% 93%);
+      --forest:    hsl(163 58% 18%);
+      --forest-dk: hsl(163 58% 12%);
+      --sage:      hsl(163 20% 35%);
+      --terracota: hsl(25 55% 51%);
+      --gold:      hsl(37 82% 58%);
+      --gold-pale: hsl(37 60% 88%);
+      --border:    hsl(100 10% 85%);
+      --cream:     hsl(40 20% 97%);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--forest);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* ── BANNER ── */
+    .banner {
+      background: var(--forest-dk);
+      padding: 10px 16px;
+      text-align: center;
+    }
+    .banner p {
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(250,246,240,.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1152px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-back { font-size: 12px; letter-spacing: .05em; color: var(--sage); text-decoration: none; }
+    .nav-cta {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      background: var(--terracota); color: var(--cream);
+      padding: 8px 20px; border-radius: 2px; text-decoration: none;
+    }
+
+    /* ── GOLD LINE ── */
+    .gold-line { width: 44px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--terracota)); margin-bottom: 20px; }
+    .gold-line.center { margin: 0 auto 20px; }
+
+    /* ── HERO ── */
+    .hero { padding: 48px 24px 56px; background: var(--bg); }
+    .hero-inner {
+      max-width: 1152px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .hero-eyebrow { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--terracota); margin-bottom: 20px; }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 500; line-height: 1.1;
+      color: var(--forest); margin-bottom: 16px;
+    }
+    h1 em { font-weight: 300; font-style: italic; }
+    .hero-sub { font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--sage); max-width: 420px; margin-bottom: 28px; }
+
+    .social-proof { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .avatars { display: flex; }
+    .avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 500; color: var(--cream);
+      border: 2px solid var(--bg); margin-left: -6px;
+    }
+    .avatar:first-child { margin-left: 0; }
+    .stars { color: var(--gold); font-size: 11px; margin-bottom: 2px; }
+    .proof-text { font-size: 10px; color: var(--sage); }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .badge { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; border: 1px solid var(--border); color: var(--sage); }
+
+    .price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .price-old { font-size: 14px; text-decoration: line-through; color: var(--sage); opacity: .7; }
+    .price-main { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Playfair Display', serif; font-weight: 300; color: var(--forest); }
+    .price-note { font-size: 11px; color: var(--terracota); margin-bottom: 24px; }
+
+    .btn {
+      display: inline-block;
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      font-weight: 500; padding: 18px 40px; border-radius: 2px; text-decoration: none;
+      transition: all .2s; cursor: pointer;
+    }
+    .btn-terracota { background: var(--terracota); color: var(--cream); }
+    .btn-gold      { background: var(--gold); color: var(--forest); }
+    .btn-full      { display: block; text-align: center; }
+    .btn:hover     { filter: brightness(1.08); transform: scale(1.015); }
+    .secure-note   { font-size: 12px; color: var(--sage); margin-top: 10px; }
+
+    /* Capa do ebook */
+    .book-wrap { display: flex; justify-content: center; }
+    .book-shadow { position: relative; display: inline-block; }
+    .book-glow { position: absolute; inset: 0; transform: translate(14px, 14px); background: rgba(224,164,59,.25); border-radius: 8px; filter: blur(8px); }
+    .book-img { position: relative; width: 220px; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.25); border: 1px solid rgba(224,164,59,.27); display: block; }
+    .book-badge {
+      position: absolute; top: -12px; right: -12px;
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--terracota);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    }
+    .book-badge span { font-size: 8px; text-transform: uppercase; letter-spacing: .08em; color: var(--cream); line-height: 1.3; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar { background: var(--forest); padding: 14px 24px; display: flex; flex-wrap: wrap; gap: 24px 32px; justify-content: center; }
+    .trust-item { display: flex; align-items: center; gap: 8px; }
+    .trust-dot  { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .trust-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--cream); }
+
+    /* ── NÚMEROS ── */
+    .stats { background: var(--bg); border-bottom: 1px solid var(--border); padding: 48px 24px; }
+    .stats-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .stat { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+    .stat-num { font-family: 'Playfair Display', serif; font-weight: 300; font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1; color: var(--forest); }
+    .stat-bar  { width: 24px; height: 1px; background: var(--gold); opacity: .7; }
+    .stat-label { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--sage); }
+
+    /* ── DEPOIMENTOS ── */
+    .testimonials { background: var(--bg-muted); border-bottom: 1px solid var(--border); padding: 56px 24px; }
+    .section-eyebrow { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--sage); text-align: center; margin-bottom: 8px; }
+    h2 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--forest); line-height: 1.2; }
+    .section-head { text-align: center; margin-bottom: 40px; }
+    .cards { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.05); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
+    .card-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; line-height: 1.55; color: var(--forest); margin-top: 10px; }
+    .card-name  { font-size: 11px; font-weight: 500; color: var(--forest); }
+    .card-role  { font-size: 10px; color: var(--sage); }
+
+    /* ── HOOK / DOR ── */
+    .hook { background: var(--bg); padding: 56px 24px; }
+    .hook-inner { max-width: 720px; margin: 0 auto; }
+    .pain-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .pain-item { display: flex; align-items: flex-start; gap: 16px; background: var(--bg-muted); border: 1px solid var(--border); border-radius: 2px; padding: 16px 20px; }
+    .pain-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--terracota); flex-shrink: 0; margin-top: 6px; }
+    .pain-text { font-size: 14px; line-height: 1.6; color: var(--sage); }
+    .author-quote { background: var(--forest); border-radius: 2px; padding: 28px 32px; }
+    .author-quote blockquote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; line-height: 1.6; color: var(--cream); margin-bottom: 14px; }
+    .author-quote cite { font-size: 13px; color: var(--gold); font-style: normal; }
+
+    /* ── PARA QUEM — destaque total ── */
+    .for-who { background: var(--forest); padding: 64px 24px; }
+    .for-who-inner { max-width: 720px; margin: 0 auto; }
+    .for-who-eyebrow { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .for-who-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 500; color: var(--cream); line-height: 1.1; margin-bottom: 10px; }
+    .for-who-sub  { font-size: 14px; color: var(--gold-pale); margin-bottom: 36px; font-weight: 300; }
+    .check-items  { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+    .check-item   { display: flex; align-items: flex-start; gap: 14px; background: rgba(250,246,240,.07); border: 1px solid rgba(250,246,240,.15); border-radius: 2px; padding: 14px 20px; }
+    .check-icon   { color: var(--gold); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+    .check-text   { font-size: 14px; line-height: 1.6; color: var(--gold-pale); }
+    .for-who-cta  { text-align: center; }
+    .for-who-cta-note { font-size: 11px; color: var(--gold-pale); margin-top: 10px; }
+
+    /* ── SUMÁRIO ── */
+    .chapters-section { background: var(--bg-muted); padding: 56px 24px; border-top: 1px solid var(--border); }
+    .chapters-inner   { max-width: 720px; margin: 0 auto; }
+    .chapters-eyebrow { font-size: 10px; letter-spacing: .35em; text-transform: uppercase; color: var(--sage); text-align: center; margin-bottom: 6px; }
+    .chapters-title   { font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--forest); text-align: center; }
+    .gold-line-center { width: 44px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--terracota)); margin: 16px auto 36px; }
+    .chapter-list { list-style: none; }
+    .chapter-item { display: flex; gap: 24px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .chapter-item:last-child { border-bottom: none; }
+    .chapter-num  { font-family: 'Playfair Display', serif; font-weight: 300; font-size: 3rem; line-height: 1; color: var(--gold); opacity: .45; width: 56px; text-align: right; flex-shrink: 0; }
+    .chapter-title { font-family: 'Playfair Display', serif; font-weight: 300; font-size: 15px; line-height: 1.5; color: var(--forest); }
+    .chapters-cta      { text-align: center; margin-top: 44px; }
+    .chapters-cta-note { font-size: 11px; color: var(--sage); margin-top: 10px; }
+
+    /* ── O QUE MUDA ── */
+    .what-changes { background: var(--bg); border-top: 1px solid var(--border); padding: 56px 24px; }
+    .what-changes-inner { max-width: 720px; margin: 0 auto; }
+    .what-changes h2 { font-weight: 500; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 36px; }
+    .what-changes-body { display: flex; flex-direction: column; gap: 20px; }
+    .what-changes-body p { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--sage); }
+    .what-changes-body .pivot { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; font-weight: 400; color: var(--forest); }
+    .what-changes-body .closing { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; color: var(--forest); padding-top: 8px; }
+
+    /* ── AUTORA ── */
+    .author-section { background: var(--bg); padding: 56px 24px; }
+    .author-inner   { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: center; }
+    .author-photo   { position: relative; width: 100%; max-width: 280px; }
+    .author-shadow  { position: absolute; inset: 0; transform: translate(10px, 10px); background: rgba(224,164,59,.13); border-radius: 2px; }
+    .author-img     { position: relative; width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; border-radius: 2px; border: 1px solid rgba(224,164,59,.2); box-shadow: 0 12px 40px rgba(0,0,0,.12); display: block; }
+    .author-eyebrow { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--sage); margin-bottom: 8px; }
+    .author-name    { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--forest); margin-bottom: 20px; }
+    .author-bio     { font-size: 14px; line-height: 1.75; color: var(--sage); }
+    .author-bio p + p { margin-top: 14px; }
+    .author-bio strong { color: var(--forest); font-weight: 400; }
+    .ig-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--terracota); text-decoration: none; transition: opacity .2s; }
+    .ig-link:hover { opacity: .7; }
+
+    /* ── GARANTIA ── */
+    .guarantee { background: var(--forest-dk); padding: 56px 24px; text-align: center; }
+    .guarantee-icon    { font-size: 36px; margin-bottom: 16px; }
+    .guarantee-eyebrow { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .guarantee-title   { font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--cream); margin-bottom: 16px; }
+    .guarantee-text    { max-width: 520px; margin: 0 auto; font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--gold-pale); }
+
+    /* ── CTA FINAL ── */
+    .final-cta   { background: var(--bg-muted); border-top: 1px solid var(--border); padding: 64px 24px; }
+    .final-inner { max-width: 520px; margin: 0 auto; text-align: center; }
+    .final-title { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--forest); line-height: 1.2; margin-bottom: 12px; }
+    .final-sub   { font-size: 14px; color: var(--sage); line-height: 1.7; margin-bottom: 36px; }
+    .buy-card    { background: linear-gradient(135deg, var(--forest-dk), var(--forest)); border: 1px solid rgba(200,160,80,.35); border-radius: 2px; padding: 32px 36px; margin-bottom: 24px; text-align: left; }
+    .buy-card-label  { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .buy-price-row   { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+    .buy-old         { font-size: 13px; text-decoration: line-through; color: var(--gold-pale); opacity: .7; }
+    .buy-price       { font-family: 'Playfair Display', serif; font-weight: 300; font-size: 3.5rem; color: var(--gold); }
+    .buy-price-note  { font-size: 11px; color: var(--gold-pale); margin-bottom: 20px; }
+    .buy-includes    { list-style: none; margin-bottom: 28px; }
+    .buy-includes li { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 13px; color: var(--cream); }
+    .buy-includes .chk { color: var(--gold); font-size: 12px; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); background: var(--bg); padding: 28px 24px; text-align: center; }
+    footer p { font-size: 11px; color: var(--sage); }
+    .footer-ig { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--sage); text-decoration: none; transition: opacity .2s; }
+    .footer-ig:hover { opacity: .6; }
+
+    /* ── STICKY MOBILE ── */
+    .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(250,246,240,.97); backdrop-filter: blur(14px); border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(0,0,0,.08); padding: 10px; }
+    .sticky-inner { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(90deg, var(--terracota), hsl(20 60% 46%)); border-radius: 2px; padding: 14px 20px; text-decoration: none; }
+    .sticky-label { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--cream); font-weight: 500; }
+    .sticky-price { font-size: 10px; color: rgba(250,246,240,.8); text-align: right; line-height: 1.3; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner   { grid-template-columns: 1fr; }
+      .hero-text    { order: 2; }
+      .hero-img     { order: 1; }
+      .stats-inner  { grid-template-columns: repeat(2, 1fr); }
+      .cards        { grid-template-columns: 1fr; }
+      .author-inner { grid-template-columns: 1fr; }
+      .author-photo { max-width: 240px; margin: 0 auto; }
+      .sticky-cta   { display: block; }
+      body          { padding-bottom: 80px; }
+    }
+    @media (min-width: 769px) {
+      .sticky-cta { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BANNER -->
+<div class="banner">
+  <p>✦ Preço de lançamento · R$ 37,90 · Acesso imediato ✦</p>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-back">← Voltar ao site</a>
+    <a href="#comprar" class="nav-cta">Comprar · R$ 37,90</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">E-book · 7 capítulos · PDF imediato</p>
+      <div class="gold-line"></div>
+      <h1>
+        Você dá conta de muita coisa.<br>
+        <em>Mas talvez ainda não entenda o que isso tem custado por dentro.</em>
+      </h1>
+      <p class="hero-sub">
+        O GPS Psíquico é um e-book clínico para mulheres que sustentam,
+        resolvem, acolhem e funcionam mas, por dentro, sentem ansiedade,
+        exaustão, culpa, irritabilidade ou a sensação de repetir os mesmos padrões.
+      </p>
+      <p class="hero-sub">
+        Este material te ajuda a reconhecer a estrutura por trás do que você sente:
+        emoções recorrentes, sintomas, vínculos difíceis, mecanismos de defesa e lugares
+        internos que você aprendeu a ocupar para se manter segura, aceita ou necessária.
+      </p>
+      <p style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;color:var(--forest);max-width:420px;margin-bottom:28px;">
+        Quando você entende a estrutura, o sintoma deixa de ser uma ameaça. E começa a virar informação.
+      </p>
+
+      <div class="social-proof">
+        <div class="avatars">
+          <div class="avatar" style="background:var(--forest)">C</div>
+          <div class="avatar" style="background:var(--terracota)">R</div>
+          <div class="avatar" style="background:var(--gold);color:var(--forest)">F</div>
+        </div>
+        <div>
+          <div class="stars">★★★★★ <strong style="font-size:11px;color:var(--forest)">5.0</strong></div>
+          <p class="proof-text">Avaliado por leitoras</p>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge">PDF Digital</span>
+        <span class="badge">Acesso Imediato</span>
+        <span class="badge">Garantia 7 dias</span>
+        <span class="badge">60+ páginas</span>
+      </div>
+
+      <div class="price-row">
+        <span class="price-old">R$ 57,00</span>
+        <span class="price-main serif">R$ 37,90</span>
+      </div>
+      <p class="price-note">Preço de lançamento · Garantia incondicional de 7 dias</p>
+
+      <a href="#comprar" class="btn btn-terracota">Quero acessar o GPS Psíquico →</a>
+      <p class="secure-note">Compra segura via Hotmart · PIX, boleto e cartão</p>
+    </div>
+
+    <div class="hero-img book-wrap">
+      <div class="book-shadow">
+        <div class="book-glow"></div>
+        <img src="src/assets/ebook-cover.webp" alt="Capa do e-book GPS Psíquico" class="book-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="book-img" style="display:none;background:linear-gradient(160deg,var(--forest),var(--forest-dk));flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;min-height:320px;">
+          <p style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:8px;">GPS<br>Psíquico</p>
+          <p style="font-family:'Playfair Display',serif;font-size:.85rem;font-style:italic;color:var(--gold-pale);">Emoções como Estrutura</p>
+          <p style="font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:14px;">Loren Lorenço</p>
+        </div>
+        <div class="book-badge">
+          <span>Preço</span><span>lançamento</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-label">7 capítulos de leitura clínica</span></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-label">60+ páginas de conteúdo denso</span></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-label">Método integrativo próprio</span></div>
+  <div class="trust-item"><div class="trust-dot"></div><span class="trust-label">Acesso imediato em PDF</span></div>
+</div>
+
+<!-- NÚMEROS -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat"><span class="stat-num serif">7</span><div class="stat-bar"></div><span class="stat-label">capítulos</span></div>
+    <div class="stat"><span class="stat-num serif">60+</span><div class="stat-bar"></div><span class="stat-label">páginas</span></div>
+    <div class="stat"><span class="stat-num serif">8</span><div class="stat-bar"></div><span class="stat-label">anos de clínica</span></div>
+    <div class="stat"><span class="stat-num serif">500+</span><div class="stat-bar"></div><span class="stat-label">mulheres atendidas</span></div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-eyebrow">Quem já leu</p>
+    <div class="section-head"><h2 style="font-weight:400">O que as leitoras disseram</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div><div class="stars">★★★★★</div><p class="card-quote">"Não esperava encontrar tanta precisão num e-book. Cada capítulo me fez nomear algo que eu não conseguia articular."</p></div>
+        <div><p class="card-name">C.M.</p><p class="card-role">Psicóloga</p></div>
+      </div>
+      <div class="card">
+        <div><div class="stars">★★★★★</div><p class="card-quote">"Li de uma vez. A parte sobre padrões repetitivos foi cirúrgica. Finalmente entendi o que estava por baixo."</p></div>
+        <div><p class="card-name">R.A.</p><p class="card-role">Advogada</p></div>
+      </div>
+      <div class="card">
+        <div><div class="stars">★★★★★</div><p class="card-quote">"Diferente de tudo que já li sobre ansiedade. Fala da estrutura, não do sintoma. Mudou minha perspectiva."</p></div>
+        <div><p class="card-name">F.S.</p><p class="card-role">Professora</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOOK / DOR -->
+<section class="hook">
+  <div class="hook-inner">
+    <div class="gold-line"></div>
+    <h2 style="font-weight:500;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:28px;">Você se reconhece em algum destes cenários?</h2>
+    <div class="pain-items">
+      <div class="pain-item"><div class="pain-dot"></div><p class="pain-text">Você sente que algo acontece por dentro, mas ainda não conseguiu nomear com clareza.</p></div>
+      <div class="pain-item"><div class="pain-dot"></div><p class="pain-text">Você percebe que repete padrões nos vínculos, no trabalho ou consigo mesma, e entender isso racionalmente ainda não foi suficiente para mudar.</p></div>
+      <div class="pain-item"><div class="pain-dot"></div><p class="pain-text">Você já buscou autoconhecimento, terapia, leituras ou podcasts, mas sente que ainda falta uma peça mais profunda.</p></div>
+      <div class="pain-item"><div class="pain-dot"></div><p class="pain-text">Você reage de formas que reconhece como suas, mas não consegue explicar de onde vêm ou por que persistem.</p></div>
+      <div class="pain-item"><div class="pain-dot"></div><p class="pain-text">Você desconfia que o que sente não é apenas estresse: e que a resposta não está em relaxar mais, mas em entender mais.</p></div>
+      <div class="pain-item"><div class="pain-dot"></div><p class="pain-text">Você quer uma leitura clínica do que você sente, não uma lista de dicas para se sentir melhor.</p></div>
+    </div>
+    <div class="author-quote">
+      <blockquote>"Não é fraqueza. Não é falta de força de vontade. É ausência de mapa. O GPS Psíquico foi escrito para oferecer exatamente isso: uma leitura clínica da sua estrutura interna."</blockquote>
+      <cite>Loren Lorenço, psicoterapeuta</cite>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM — destaque total -->
+<section class="for-who">
+  <div class="for-who-inner">
+    <p class="for-who-eyebrow">Este e-book é para você</p>
+    <h2 class="for-who-title serif">Você se reconhece aqui?</h2>
+    <p class="for-who-sub">Se qualquer um desses pontos ressoa, esse material foi escrito para você.</p>
+    <div class="check-items">
+      <div class="check-item"><span class="check-icon">✓</span><p class="check-text">Sente ansiedade de forma recorrente, mas as explicações que encontra nunca chegam à raiz.</p></div>
+      <div class="check-item"><span class="check-icon">✓</span><p class="check-text">Vive em sobrecarga emocional e já não distingue o que é cansaço do corpo do que é cansaço da mente.</p></div>
+      <div class="check-item"><span class="check-icon">✓</span><p class="check-text">Repete os mesmos padrões nos relacionamentos, no trabalho, consigo mesma. E já percebeu isso.</p></div>
+      <div class="check-item"><span class="check-icon">✓</span><p class="check-text">Busca autoconhecimento real, sem abordagens superficiais ou promessas motivacionais.</p></div>
+      <div class="check-item"><span class="check-icon">✓</span><p class="check-text">Quer entender a estrutura interna que sustenta o que sente, pensa e repete.</p></div>
+      <div class="check-item"><span class="check-icon">✓</span><p class="check-text">Está em processo terapêutico e quer aprofundar a compreensão com uma leitura clínica complementar.</p></div>
+    </div>
+    <div class="for-who-cta">
+      <a href="#comprar" class="btn btn-gold">Quero o GPS Psíquico →</a>
+      <p class="for-who-cta-note">R$ 37,90 · Preço de lançamento · Garantia de 7 dias</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUMÁRIO -->
+<section class="chapters-section">
+  <div class="chapters-inner">
+    <p class="chapters-eyebrow">Conteúdo</p>
+    <h2 class="chapters-title">O que você vai encontrar no e-book</h2>
+    <div class="gold-line-center"></div>
+    <ul class="chapter-list">
+      <li class="chapter-item"><span class="chapter-num serif">01</span><span class="chapter-title">O que é o GPS Psíquico e por que ele importa</span></li>
+      <li class="chapter-item"><span class="chapter-num serif">02</span><span class="chapter-title">A arquitetura interna das emoções</span></li>
+      <li class="chapter-item"><span class="chapter-num serif">03</span><span class="chapter-title">Ansiedade e sintomas de superfície: quando a raiz é mais profunda</span></li>
+      <li class="chapter-item"><span class="chapter-num serif">04</span><span class="chapter-title">Padrões repetitivos: o que o inconsciente insiste em mostrar</span></li>
+      <li class="chapter-item"><span class="chapter-num serif">05</span><span class="chapter-title">Sobrecarga e exaustão: quando o sistema pede pausa</span></li>
+      <li class="chapter-item"><span class="chapter-num serif">06</span><span class="chapter-title">O papel da consciência na reorganização interna</span></li>
+      <li class="chapter-item"><span class="chapter-num serif">07</span><span class="chapter-title">Direções possíveis: da compreensão à transformação</span></li>
+    </ul>
+    <div class="chapters-cta">
+      <a href="#comprar" class="btn btn-terracota">Quero acessar o e-book →</a>
+      <p class="chapters-cta-note">R$ 37,90 · Preço de lançamento · Acesso imediato</p>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE MUDA -->
+<section class="what-changes">
+  <div class="what-changes-inner">
+    <div class="gold-line"></div>
+    <h2 class="serif">O que muda quando você começa a entender seu mapa interno?</h2>
+    <div class="what-changes-body">
+      <p>Quando você não entende a estrutura por trás do que sente, tudo parece bagunça.</p>
+      <p>A ansiedade parece surgir do nada. A exaustão parece fraqueza. A irritação vira culpa. O corpo parece estar contra você. E os padrões que se repetem começam a ser confundidos com personalidade.</p>
+      <p class="pivot">Mas quando você começa a ler esse mapa, algo muda.</p>
+      <p>Você passa a reconhecer que muitas das suas reações têm uma lógica. Que certos sintomas não aparecem por acaso. Que alguns vínculos ativam lugares antigos dentro de você. Que a culpa, o controle, a hiperfunção e a sobrecarga podem ser respostas aprendidas: não defeitos pessoais.</p>
+      <p>Entender o mapa interno não resolve tudo de uma vez. Mas organiza o caminho. Você começa a diferenciar o que sente, o que repete, o que protege, o que carrega e o que talvez já não precise mais sustentar.</p>
+      <p>E essa clareza muda a forma como você olha para si.</p>
+      <p class="closing">Porque o que antes parecia confusão começa a revelar uma estrutura. E onde existe estrutura, existe possibilidade de consciência e transformação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTORA -->
+<section class="author-section">
+  <div class="author-inner">
+    <div>
+      <div class="author-photo">
+        <div class="author-shadow"></div>
+        <img src="src/assets/author-photo.webp" alt="Loren Lorenço" class="author-img" onerror="this.style.background='var(--bg-muted)';this.style.display='block';this.style.minHeight='280px';">
+      </div>
+    </div>
+    <div>
+      <div class="gold-line"></div>
+      <p class="author-eyebrow">Quem escreveu</p>
+      <h2 class="author-name serif">Loren Lorenço</h2>
+      <div class="author-bio">
+        <p>Psicoterapeuta com mais de 8 anos de atuação clínica com mulheres adultas. Seu método próprio integra psicanálise, psicologia analítica junguiana, neurobiologia do trauma, constelação familiar e Medicina Tradicional Chinesa.</p>
+        <p>Já acompanhou mais de 500 mulheres em processos de travessia real, do caos emocional à clareza estrutural.</p>
+        <p><strong>O GPS Psíquico é a síntese dos conceitos que ela trabalha no consultório, agora em forma de leitura direta e acessível.</strong></p>
+      </div>
+      <a href="https://www.instagram.com/lorenlorenco" target="_blank" class="ig-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        @lorenlorenco
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section class="guarantee">
+  <div class="guarantee-icon">🛡</div>
+  <p class="guarantee-eyebrow">Segurança</p>
+  <h2 class="guarantee-title serif">Garantia incondicional de 7 dias</h2>
+  <div class="gold-line-center"></div>
+  <p class="guarantee-text">Se dentro de 7 dias após a compra você sentir que o conteúdo não é para o seu momento, basta solicitar o reembolso integral pelo Hotmart. Sem perguntas. Sem burocracia. O risco é zero.</p>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final-cta" id="comprar">
+  <div class="final-inner">
+    <div class="gold-line center"></div>
+    <h2 class="final-title serif">Pronta para ler o seu GPS?</h2>
+    <p class="final-sub">Um material de leitura clínica que oferece clareza sobre a estrutura que sustenta o que se repete, e as direções possíveis para a mudança real.</p>
+
+    <div class="buy-card">
+      <p class="buy-card-label">GPS Psíquico · E-book</p>
+      <div class="buy-price-row">
+        <span class="buy-old">R$ 57,00</span>
+        <span class="buy-price serif">R$ 37,90</span>
+      </div>
+      <p class="buy-price-note">Preço de lançamento · Acesso imediato após o pagamento</p>
+      <ul class="buy-includes">
+        <li><span class="chk">✓</span> 7 capítulos de leitura clínica</li>
+        <li><span class="chk">✓</span> 60+ páginas de conteúdo denso</li>
+        <li><span class="chk">✓</span> Material em PDF. Leia onde quiser</li>
+        <li><span class="chk">✓</span> Acesso permanente, sem prazo de validade</li>
+        <li><span class="chk">✓</span> Garantia incondicional de 7 dias</li>
+        <li><span class="chk">✓</span> Pagamento seguro via Hotmart</li>
+      </ul>
+      <a href="https://pay.hotmart.com/V105035990J?off=sj802605" target="_blank" class="btn btn-terracota btn-full">Quero o GPS Psíquico agora →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="https://www.instagram.com/lorenlorenco" target="_blank" class="footer-ig">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    @lorenlorenco
+  </a>
+  <p>© 2025 Loren Lorenço · Todos os direitos reservados</p>
+</footer>
+
+<!-- STICKY MOBILE -->
+<div class="sticky-cta">
+  <a href="https://pay.hotmart.com/V105035990J?off=sj802605" target="_blank" class="sticky-inner">
+    <span class="sticky-label">Quero o GPS Psíquico</span>
+    <span class="sticky-price">R$ 37,90 · Lançamento →</span>
+  </a>
+</div>
+
+</body>
+</html>

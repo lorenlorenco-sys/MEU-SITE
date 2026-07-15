@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand palette - Official colors */
+    --background: 35 20% 97%;
+    --foreground: 169 69% 14%;
+    
+    --card: 35 15% 95%;
+    --card-foreground: 169 69% 14%;
+    
+    --popover: 35 20% 97%;
+    --popover-foreground: 169 69% 14%;
+    
+    /* Primary Green - #0B3B32 */
+    --primary: 169 69% 14%;
+    --primary-foreground: 35 30% 96%;
+    
+    /* Accent Gold - #C17C46 */
+    --accent: 26 50% 52%;
+    --accent-foreground: 35 30% 96%;
+    
+    /* Warm cream tones */
+    --secondary: 35 25% 92%;
+    --secondary-foreground: 169 69% 14%;
+    
+    --muted: 35 18% 90%;
+    --muted-foreground: 169 40% 30%;
+    
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 35 20% 85%;
+    --input: 35 20% 85%;
+    --ring: 169 69% 14%;
+    
+    --radius: 0.25rem;
+    
+    --sidebar-background: 35 20% 97%;
+    --sidebar-foreground: 169 69% 14%;
+    --sidebar-primary: 169 69% 14%;
+    --sidebar-primary-foreground: 35 30% 96%;
+    --sidebar-accent: 35 25% 92%;
+    --sidebar-accent-foreground: 169 69% 14%;
+    --sidebar-border: 35 20% 85%;
+    --sidebar-ring: 169 69% 14%;
+  }
+
+  .dark {
+    --background: 169 50% 6%;
+    --foreground: 35 25% 92%;
+    
+    --card: 169 45% 10%;
+    --card-foreground: 35 25% 92%;
+    
+    --popover: 169 45% 10%;
+    --popover-foreground: 35 25% 92%;
+    
+    --primary: 169 55% 25%;
+    --primary-foreground: 35 30% 96%;
+    
+    --accent: 26 50% 55%;
+    --accent-foreground: 35 30% 96%;
+    
+    --secondary: 169 35% 15%;
+    --secondary-foreground: 35 20% 85%;
+    
+    --muted: 169 30% 18%;
+    --muted-foreground: 35 15% 60%;
+    
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 169 30% 20%;
+    --input: 169 30% 20%;
+    --ring: 169 55% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    line-height: 1.8;
+  }
+
+  /* Elegant serif for headings - Playfair Display */
+  .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    line-height: 1.15;
+    color: hsl(var(--primary));
+  }
+
+  /* Refined selection - gold accent */
+  ::selection {
+    background: hsl(26 50% 52% / 0.25);
+  }
+
+  /* Link hover with gold accent */
+  a:hover {
+    color: hsl(var(--accent));
+  }
+}
+
+@layer utilities {
+  /* Subtle text emphasis */
+  .text-emphasis {
+    color: hsl(var(--primary));
+  }
+
+  /* Editorial line */
+  .editorial-line {
+    width: 48px;
+    height: 1px;
+    background: hsl(var(--primary) / 0.4);
+  }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Section spacing - breathing room */
+  .section-spacing {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  /* Elegant card with gold accent */
+  .card-accent {
+    @apply bg-background/80 backdrop-blur-sm border-l-[3px] border-l-accent shadow-sm hover:shadow-md transition-all duration-300;
+  }
+
+  /* Title with elegant tracking */
+  .title-elegant {
+    @apply font-serif tracking-tight;
+    letter-spacing: 0.02em;
+  }
+}
