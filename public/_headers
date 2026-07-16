@@ -1,23 +1,27 @@
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
+# Politica de cache — corrigida em 16/07/2026 (ver COMO-FAZER-DEPLOY.md)
+#
+# PROBLEMA ANTERIOR: a regra "/index.html" NUNCA casava em producao, porque o
+# Cloudflare Pages redireciona /index.html para /. Resultado: o HTML de /,
+# /analise-estrutural etc. ficava SEM regra, era guardado por horas no cache
+# da borda e continuava apontando para arquivos JS/CSS de um deploy que ja
+# nao existia mais (que entao devolviam HTML no lugar de JS = pagina quebrada
+# de forma intermitente).
 
-/*.js
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.css
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.webp
-  Cache-Control: public, max-age=31536000, immutable
-
-/images/*.webp
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.woff2
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.woff
-  Cache-Control: public, max-age=31536000, immutable
-
-/index.html
+# 1) Regra geral: nenhuma URL fica congelada. Cobre o HTML de TODAS as rotas
+#    do SPA (/, /analise-estrutural, /sobre, /metodo, /gps-psiquico, /ebook).
+/*
   Cache-Control: public, max-age=0, must-revalidate
+
+# 2) Arquivos com hash no nome (gerados pelo Vite em /assets): cache de 1 ano,
+#    imutavel. O "! Cache-Control" remove o valor herdado da regra geral antes
+#    de redefinir — sem isso o Pages CONCATENA os dois valores.
+/assets/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable
+
+# 3) Imagens de public/images NAO tem hash no nome, entao nao podem ser
+#    "immutable" (uma troca de imagem levaria ate 1 ano para aparecer).
+#    1 dia de cache + 7 dias de revalidacao em segundo plano.
+/images/*
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

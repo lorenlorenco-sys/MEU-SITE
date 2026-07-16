@@ -1,0 +1,41 @@
+# CI — bloqueia regressoes antes do deploy e valida a producao depois dele.
+# Criado em 16/07/2026 junto com a correcao da politica de cache.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  testar-e-buildar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Testes (inclui rota /analise-estrutural)
+        run: npm test
+      - name: Build de producao
+        run: npm run build
+      - name: Verificacao pos-build (imagens LCP, GTM, canonical)
+        run: npm run check
+
+  smoke-producao:
+    # Roda apos push na main: espera o Cloudflare Pages publicar e valida que
+    # borda e origem servem o MESMO build e que nenhum asset devolve HTML.
+    needs: testar-e-buildar
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Aguardar deploy do Cloudflare Pages (~2 min)
+        run: sleep 120
+      - name: Smoke test de producao
+        run: npm run smoke:prod
