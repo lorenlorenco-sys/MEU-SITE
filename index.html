@@ -1,74 +1,35 @@
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loren Lorenço | Clínica de Individuação e Vínculos</title>
-    <meta name="title" content="Loren Lorenço | Clínica de Individuação e Vínculos" />
-    <meta name="description" content="Psicoterapia e Mentoria integrativa para mulheres. Foco em estrutura interna, vínculos e autonomia emocional. Para quem busca mudança real de direção, não apenas alívio sintomático." />
-    <meta name="keywords" content="psicoterapia para mulheres, mentoria de vínculos, individuação, Loren Lorenço, estrutura interna, maturidade emocional" />
-    <meta name="author" content="Loren Lorenço" />
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="Portuguese" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://lorenlorenco.com.br/" />
-    <meta property="og:title" content="Loren Lorenço | Clínica de Individuação e Vínculos" />
-    <meta property="og:description" content="Psicoterapia e Mentoria integrativa para mulheres. Foco em estrutura interna, vínculos e autonomia emocional. Para quem busca mudança real de direção, não apenas alívio sintomático." />
-    <meta property="og:image" content="https://lorenlorenco.com.br/og-image.jpg" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content="Loren Lorenço" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://lorenlorenco.com.br/" />
-    <meta name="twitter:title" content="Loren Lorenço | Clínica de Individuação e Vínculos" />
-    <meta name="twitter:description" content="Psicoterapia e Mentoria integrativa para mulheres. Foco em estrutura interna, vínculos e autonomia emocional." />
-    <meta name="twitter:image" content="https://lorenlorenco.com.br/og-image.jpg" />
-    <link rel="canonical" href="https://lorenlorenco.com.br/" />
-    <!-- OTIMIZAÇÃO: Preconnect para acelerar conexões externas -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-
-    <!-- OTIMIZAÇÃO: Preload das imagens LCP — descoberta antes do JS executar.
-         Cada rota recebe apenas seu preload; media queries garantem que
-         o browser não baixe versões desnecessárias.                         -->
-
-    <!-- PRELOADS POR ROTA ─────────────────────────────────────────────────────
-         Script inline (~300 bytes) executa sincronamente no <head>, antes do
-         React. Só a imagem LCP da rota ATUAL recebe fetchpriority="high",
-         evitando que páginas compitam por banda umas com as outras.
-         • href       → para <img src>  (padrão em mobile no /analise-estrutural)
-         • imagesrcset → para <source srcSet> (desktop no /analise-estrutural)    -->
-    <script>!function(){var p=location.pathname,h=document.head,mob=window.matchMedia('(max-width:1023px)').matches;function pre(u){var l=document.createElement('link');l.rel='preload';l.as='image';l.href=u;l.setAttribute('fetchpriority','high');h.appendChild(l)}function preSrc(u){var l=document.createElement('link');l.rel='preload';l.as='image';l.setAttribute('imagesrcset',u);l.setAttribute('fetchpriority','high');h.appendChild(l)}if(p==='/'){pre('/images/hero-forest-sunlight.webp');pre('/images/loren-photo-professional.webp')}else if(p==='/analise-estrutural'){mob?pre('/images/loren-analise-hero-mobile.webp'):preSrc('/images/loren-analise-hero.webp')}}()</script>
-  </head>
-  <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N8QPFPTN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- OTIMIZAÇÃO: Scripts de rastreamento carregados após a página pronta -->
-    <script>
-      function loadAnalytics() {
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-N8QPFPTN');
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        var ga = document.createElement('script');
-        ga.async = true;
-        ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-ZB96F5VB5H';
-        document.body.appendChild(ga);
-        gtag('js', new Date());
-        gtag('config', 'G-ZB96F5VB5H');
-      }
-
-      if (document.readyState === 'complete') {
-        loadAnalytics();
-      } else {
-        window.addEventListener('load', loadAnalytics);
-      }
-    </script>
-  </body>
-</html>
+diff --git a/index.html b/index.html
+index a4e093d..8629fcb 100644
+--- a/index.html
++++ b/index.html
+@@ -64,10 +64,28 @@
+         gtag('config', 'G-ZB96F5VB5H');
+       }
+ 
+-      if (document.readyState === 'complete') {
++      // Disparo: primeira interação do usuário (scroll/toque/tecla/clique)
++      // OU 5s após o load — o que vier primeiro. Mantém ~850 KB de scripts
++      // de rastreamento fora da janela crítica de renderização (LCP/TBT/INP).
++      // O fallback de 5s preserva a contagem de pageviews de quem não interage.
++      var analyticsFired = false;
++      var analyticsEvents = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
++      function startAnalytics() {
++        if (analyticsFired) return;
++        analyticsFired = true;
++        analyticsEvents.forEach(function (e) {
++          window.removeEventListener(e, startAnalytics, { passive: true });
++        });
+         loadAnalytics();
++      }
++      analyticsEvents.forEach(function (e) {
++        window.addEventListener(e, startAnalytics, { passive: true });
++      });
++      function armAnalyticsFallback() { setTimeout(startAnalytics, 5000); }
++      if (document.readyState === 'complete') {
++        armAnalyticsFallback();
+       } else {
+-        window.addEventListener('load', loadAnalytics);
++        window.addEventListener('load', armAnalyticsFallback);
+       }
+     </script>
+   </body>
