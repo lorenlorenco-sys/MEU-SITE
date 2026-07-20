@@ -17,10 +17,14 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Testes (inclui rota /analise-estrutural)
-        run: npm test
-      - name: Build de producao
+     # O build vem ANTES dos testes de proposito: o teste de pre-renderizacao
+      # (src/test/prerender.test.tsx) inspeciona os arquivos de dist/ e se
+      # auto-pula se a pasta nao existir. Invertendo a ordem, ele rodaria em
+      # branco e a regressao de LCP passaria despercebida.
+      - name: Build de producao (inclui pre-renderizacao das rotas)
         run: npm run build
+      - name: Testes (rotas + pre-renderizacao/hidratacao)
+        run: npm test
       - name: Verificacao pos-build (imagens LCP, GTM, canonical)
         run: npm run check
 
