@@ -29,25 +29,37 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 // componente, mas embrulhavam o app inteiro e entravam no JS crítico de toda
 // página (incluindo a landpage de tráfego pago). Removê-los reduz o JavaScript
 // não usado e as tarefas longas na linha principal (TBT) no mobile.
-const App = () => (
+// AppRoutes = a árvore SEM router. O cliente embrulha em <BrowserRouter>;
+// o build de pré-renderização embrulha em <StaticRouter>. Assim os dois
+// renderizam exatamente o mesmo HTML e a hidratação não dá mismatch.
+export const AppRoutes = () => (
   <>
-    <Toaster />
-    <Sonner />
-    <BrowserRouter>
-      <Suspense fallback={null}>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/metodo" element={<Metodo />} />
-          <Route path="/gps-psiquico" element={<GpsPsiquico />} />
-          <Route path="/ebook" element={<EbookGpsPsiquico />} />
-          <Route path="/analise-estrutural" element={<AnalisePadroes />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    {/* Toaster e Sonner são lazy — precisam do próprio <Suspense>. Sem ele,
+        o HTML pré-renderizado traz os containers prontos mas o cliente ainda
+        não baixou o chunk na hora de hidratar, e o React acusa divergência. */}
+    <Suspense fallback={null}>
+      <Toaster />
+      <Sonner />
+    </Suspense>
+    <Suspense fallback={null}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/metodo" element={<Metodo />} />
+        <Route path="/gps-psiquico" element={<GpsPsiquico />} />
+        <Route path="/ebook" element={<EbookGpsPsiquico />} />
+        <Route path="/analise-estrutural" element={<AnalisePadroes />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   </>
+);
+
+const App = () => (
+  <BrowserRouter>
+    <AppRoutes />
+  </BrowserRouter>
 );
 
 export default App;

@@ -17,7 +17,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-     # O build vem ANTES dos testes de proposito: o teste de pre-renderizacao
+      # O build vem ANTES dos testes de proposito: o teste de pre-renderizacao
       # (src/test/prerender.test.tsx) inspeciona os arquivos de dist/ e se
       # auto-pula se a pasta nao existir. Invertendo a ordem, ele rodaria em
       # branco e a regressao de LCP passaria despercebida.

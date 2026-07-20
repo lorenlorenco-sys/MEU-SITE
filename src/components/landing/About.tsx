@@ -22,7 +22,7 @@ const About = () => {
                     src={lorenPhoto}
                     alt="Loren Lorenço — Psicanalista especializada em individuação e vínculos para mulheres"
                     className="w-full h-full object-cover object-top scale-110"
-                    fetchPriority="high"
+                    fetchpriority="high"
                     loading="eager"
                     decoding="async"
                     width={800}

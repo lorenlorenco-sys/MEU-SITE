@@ -264,7 +264,7 @@ const AnalisePadroes = () => {
                 className="w-full h-full object-cover object-[center_10%]"
                 width={700}
                 height={870}
-                fetchPriority="high"
+                fetchpriority="high"
                 loading="eager"
                 decoding="async"
               />
