@@ -47,13 +47,25 @@ for (const rota of ROTAS) {
 
     const html = template.replace(MARCADOR, `<div id="root">${appHtml}</div>`);
 
-    const destino =
+    // Gravamos DUAS cópias de cada rota. Motivo: o Cloudflare Pages, ao
+    // receber /analise-estrutural, só encontra dist/analise-estrutural/
+    // index.html se antes redirecionar para /analise-estrutural/ (com barra).
+    // Esse 301 extra custa uma ida e volta ao servidor em cada clique de
+    // anúncio. Com o arquivo plano analise-estrutural.html, o Pages responde
+    // 200 direto na URL sem barra. A versão em pasta fica como reserva, para
+    // quem chegar pelo endereço com barra no fim.
+    const destinos =
       rota === "/"
-        ? resolve(raiz, "dist/index.html")
-        : resolve(raiz, `dist${rota}/index.html`);
+        ? [resolve(raiz, "dist/index.html")]
+        : [
+            resolve(raiz, `dist${rota}.html`),
+            resolve(raiz, `dist${rota}/index.html`),
+          ];
 
-    mkdirSync(dirname(destino), { recursive: true });
-    writeFileSync(destino, html);
+    for (const destino of destinos) {
+      mkdirSync(dirname(destino), { recursive: true });
+      writeFileSync(destino, html);
+    }
 
     const kb = (Buffer.byteLength(appHtml) / 1024).toFixed(1);
     console.log(`  ✓ ${rota.padEnd(22)} ${kb.padStart(7)} kB de HTML`);

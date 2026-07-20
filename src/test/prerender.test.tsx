@@ -24,7 +24,10 @@ const ABERTURA_ROOT = '<div id="root">';
 const BYTE_NULO = String.fromCharCode(0);
 const temBuild = existsSync(resolve(process.cwd(), "dist/index.html"));
 
-const arquivoDaRota = (r: string) => (r === "/" ? "dist/index.html" : `dist${r}/index.html`);
+// Arquivo plano (dist/analise-estrutural.html): é o que o Cloudflare Pages
+// serve na URL sem barra no fim, sem redirecionamento intermediário.
+const arquivoDaRota = (r: string) => (r === "/" ? "dist/index.html" : `dist${r}.html`);
+const arquivoPasta = (r: string) => `dist${r}/index.html`;
 const htmlDaRota = (r: string) => readFileSync(resolve(process.cwd(), arquivoDaRota(r)), "utf-8");
 
 function conteudoDoRoot(html: string) {
@@ -53,6 +56,13 @@ describe.skipIf(!temBuild)("pré-renderização (requer npm run build antes)", (
     for (const rota of ROTAS) {
       expect(existsSync(resolve(process.cwd(), arquivoDaRota(rota))), rota).toBe(true);
       expect(htmlDaRota(rota).includes(BYTE_NULO), rota).toBe(false);
+    }
+  });
+
+  it("cada rota tem versão plana E versão em pasta (evita o 301 extra)", () => {
+    for (const rota of ROTAS.filter((r) => r !== "/")) {
+      expect(existsSync(resolve(process.cwd(), `dist${rota}.html`)), `${rota}.html`).toBe(true);
+      expect(existsSync(resolve(process.cwd(), arquivoPasta(rota))), arquivoPasta(rota)).toBe(true);
     }
   });
 
