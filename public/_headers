@@ -25,3 +25,9 @@
 /images/*
   ! Cache-Control
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# 4) Imagens da landing /terapiacasal (sem hash no nome): 1 dia de cache +
+#    7 dias de revalidacao em segundo plano.
+/terapiacasal/img/*
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
