@@ -24,6 +24,9 @@
   <!-- ====== Favicon ====== -->
   <link rel="icon" type="image/png" href="img/logo-mark.png" />
 
+  <!-- ====== Preload da imagem principal (LCP) ====== -->
+  <link rel="preload" as="image" href="img/hero-casal.webp" type="image/webp" fetchpriority="high" />
+
   <!-- ====== Fontes ======
     Título/destaque solicitado: "MADE Mirage" (fonte comercial, não hospedada gratuitamente).
     Se você tiver a licença/arquivos da MADE Mirage, adicione um @font-face no style.css (há um bloco pronto lá)
@@ -32,7 +35,9 @@
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" /></noscript>
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -44,7 +49,10 @@
   <header class="site-header" id="topo">
     <div class="container header-inner">
       <a href="#topo" class="brand" aria-label="Clínica do Vínculo — página inicial">
-        <img class="brand-mark" src="img/logo-mark.png" alt="" width="629" height="348" />
+        <picture>
+          <source srcset="img/logo-mark.webp" type="image/webp" />
+          <img class="brand-mark" src="img/logo-mark.png" alt="" width="629" height="348" decoding="async" />
+        </picture>
         <span class="brand-text">Clínica do Vínculo</span>
       </a>
 
@@ -85,15 +93,17 @@
           </p>
           <div class="hero-actions">
             <a class="btn btn-wa js-wa" data-motivo="compreender a nossa relação" role="button" tabindex="0">
-              <span class="wa-icon" aria-hidden="true"></span> Quero compreender a nossa relação
+              <span class="wa-icon" aria-hidden="true"></span> Agende agora mesmo
             </a>
-            <a class="btn btn-ghost" href="#formulario">Falar com a Loren</a>
           </div>
           <p class="hero-note">Individual ou com o casal &middot; Agendamento pelo WhatsApp</p>
         </div>
 
         <div class="hero-media reveal">
-          <img class="hero-photo" src="img/hero-casal.jpg" alt="Casal sentado no sofá, em silêncio, refletindo sobre a relação" width="1600" height="900" fetchpriority="high" />
+          <picture>
+            <source srcset="img/hero-casal.webp" type="image/webp" />
+            <img class="hero-photo" src="img/hero-casal.jpg" alt="Casal sentado no sofá, em silêncio, refletindo sobre a relação" width="1600" height="900" fetchpriority="high" decoding="async" />
+          </picture>
         </div>
       </div>
     </section>
@@ -209,7 +219,10 @@
     <section class="section section-about" id="sobre" aria-labelledby="sobre-title">
       <div class="container about-inner reveal">
         <div class="about-media">
-          <img class="about-photo" src="img/loren.jpg" alt="Loren Lorenço, psicoterapeuta" width="998" height="1500" loading="lazy" />
+          <picture>
+            <source srcset="img/loren.webp" type="image/webp" />
+            <img class="about-photo" src="img/loren.jpg" alt="Loren Lorenço, psicoterapeuta" width="998" height="1500" loading="lazy" decoding="async" />
+          </picture>
         </div>
         <div class="about-content">
           <h2 id="sobre-title">Sobre Loren Lorenço</h2>
@@ -330,7 +343,10 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <img class="footer-mark" src="img/logo-mark.png" alt="" width="629" height="348" />
+        <picture>
+          <source srcset="img/logo-mark.webp" type="image/webp" />
+          <img class="footer-mark" src="img/logo-mark.png" alt="" width="629" height="348" loading="lazy" decoding="async" />
+        </picture>
         <span class="footer-name">Clínica do Vínculo</span>
         <p class="footer-tag">Loren Lorenço &middot; Psicoterapia de casais e do vínculo</p>
       </div>
