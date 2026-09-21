@@ -4,6 +4,10 @@
 
 @layer base {
   :root {
+    /* "only light" proibe o navegador (Chrome/Samsung no Android) de escurecer
+       a pagina por conta propria quando o celular esta no tema escuro. */
+    color-scheme: only light;
+
     /* Brand palette - Official colors */
     --background: 35 20% 97%;
     --foreground: 169 69% 14%;
