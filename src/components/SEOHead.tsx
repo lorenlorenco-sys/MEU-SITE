@@ -13,7 +13,7 @@ const SEOHead = ({
   canonicalPath = "",
   ogImage = "/og-image.jpg"
 }: SEOHeadProps) => {
-  const baseUrl = "https://lorenlorenco.com.br";
+  const baseUrl = "https://www.lorenlorenco.com.br";
   const fullUrl = `${baseUrl}${canonicalPath}`;
   const fullOgImage = ogImage.startsWith("http") ? ogImage : `${baseUrl}${ogImage}`;
 

@@ -19,7 +19,7 @@ import { resolve } from "node:path";
 import { hydrateRoot } from "react-dom/client";
 import App from "@/App";
 
-const ROTAS = ["/", "/analise-estrutural", "/sobre", "/metodo", "/gps-psiquico", "/ebook"];
+const ROTAS = ["/", "/analise-estrutural", "/mentoriamulherinteira", "/sobre", "/metodo", "/gps-psiquico", "/ebook"];
 const ABERTURA_ROOT = '<div id="root">';
 const BYTE_NULO = String.fromCharCode(0);
 const temBuild = existsSync(resolve(process.cwd(), "dist/index.html"));

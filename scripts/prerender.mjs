@@ -10,13 +10,14 @@
    ────────────────────────────────────────────────────────────────────── */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 const ROTAS = [
   "/",
   "/analise-estrutural",
+  "/mentoriamulherinteira",
   "/sobre",
   "/metodo",
   "/gps-psiquico",
@@ -25,7 +26,11 @@ const ROTAS = [
 
 const MARCADOR = '<div id="root"></div>';
 
-const { render } = await import(resolve(raiz, "dist-ssr/entry-server.js"));
+// pathToFileURL é obrigatório: no Windows, resolve() devolve "C:\...", e o
+// import() dinâmico do Node rejeita isso (ERR_UNSUPPORTED_ESM_URL_SCHEME,
+// "Received protocol 'c:'"). Convertido para file:///C:/... funciona nos
+// três sistemas.
+const { render } = await import(pathToFileURL(resolve(raiz, "dist-ssr/entry-server.js")).href);
 const template = readFileSync(resolve(raiz, "dist/index.html"), "utf-8");
 
 if (!template.includes(MARCADOR)) {

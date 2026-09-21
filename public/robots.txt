@@ -16,7 +16,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://lingua-flux-magic.lovable.app/sitemap.xml
+Sitemap: https://www.lorenlorenco.com.br/sitemap.xml
 
 # Disallow development/internal paths
 Disallow: /api/

@@ -1,1 +1,10 @@
+# Regras específicas primeiro — o catch-all do fim precisa ficar por último.
+
+# A mentoria é divulgada no endereço curto (/mentoriamulherinteira).
+# O endereço com hífens redireciona para lá, para que nenhum link quebre e o
+# Google concentre a autoridade em um endereço só.
+/mentoria-mulher-inteira   /mentoriamulherinteira  301
+/mentoria-mulher-inteira/  /mentoriamulherinteira  301
+
+# SPA: qualquer rota sem arquivo estático correspondente cai no index.html.
 /* /index.html 200

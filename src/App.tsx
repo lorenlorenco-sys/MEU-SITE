@@ -19,6 +19,11 @@ import AnalisePadroes from "./pages/AnalisePadroes";
 
 const Index = lazy(() => import("./pages/Index"));
 
+// Página de vendas da Mentoria Mulher Inteira (Turma 1). Lazy: tráfego chega
+// por link direto/bio, e mantê-la fora do bundle inicial preserva o LCP de
+// /analise-estrutural, que recebe tráfego pago.
+const MentoriaMulherInteira = lazy(() => import("./pages/MentoriaMulherInteira"));
+
 const Sobre = lazy(() => import("./pages/Sobre"));
 const Metodo = lazy(() => import("./pages/Metodo"));
 const GpsPsiquico = lazy(() => import("./pages/GpsPsiquico"));
@@ -49,6 +54,7 @@ export const AppRoutes = () => (
         <Route path="/gps-psiquico" element={<GpsPsiquico />} />
         <Route path="/ebook" element={<EbookGpsPsiquico />} />
         <Route path="/analise-estrutural" element={<AnalisePadroes />} />
+        <Route path="/mentoriamulherinteira" element={<MentoriaMulherInteira />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

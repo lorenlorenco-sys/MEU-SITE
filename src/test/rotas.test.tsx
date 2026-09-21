@@ -34,6 +34,18 @@ describe("rotas essenciais", () => {
     expect(container.querySelector("h1")?.textContent).toMatch(/terapia/i);
   });
 
+  it("/mentoriamulherinteira renderiza com h1 e CTA de WhatsApp", async () => {
+    const { default: Mentoria } = await import("@/pages/MentoriaMulherInteira");
+    const { container } = renderRota("/mentoriamulherinteira", <Mentoria />);
+    await waitFor(() => {
+      expect(container.querySelector("main")).toBeTruthy();
+    });
+    expect(container.querySelector("h1")?.textContent).toMatch(/mulher inteira/i);
+    // Pelo menos um CTA precisa apontar para o WhatsApp — se o link sumir,
+    // a página deixa de converter e o teste falha.
+    expect(container.querySelector('a[href*="wa.me"]')).toBeTruthy();
+  });
+
   it("/ (home) renderiza sem erro", async () => {
     const { default: Index } = await import("@/pages/Index");
     const { container } = renderRota("/", <Index />);
